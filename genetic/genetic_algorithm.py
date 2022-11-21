@@ -109,14 +109,6 @@ class GeneticAlgo():
         else:
             return random.choice(population)
 
-        max_score = max(list(map(lambda x: x["score"], population)))
-        total_exp_score = sum(list(map(lambda x: np.exp(x["score"] - max_score), population)))
-        prob_arr = list(map(lambda x: (np.exp(x["score"] - max_score)/total_exp_score), population))
-        # print(sum(prob_arr))
-        selected = np.random.choice(population, 1, p = prob_arr)
-        # print(selected[0]["score"] / total_score)
-        return selected[0]["gnorm"]
-
     def mutation(self, item):
         global GENS
         item_copy = copy.deepcopy(item)
@@ -146,15 +138,14 @@ def run_genetic(epoch, dataset, output_file):
 
     # dataset_file = open("large_dataset.txt", "r")
     dataset_file = open(f"{dataset}", "r")
-    lines = dataset_file.readlines()
     output_file = open(f"{output_file}", "w")
     
-
-    capacity = int(lines[index_line])
-    num_of_class = int(lines[index_line])
-    weights = list(map(int,lines[index_line].replace("\n", "").split(",")))
-    values = list(map(int,lines[index_line].replace("\n", "").split(",")))
-    class_label = list(map(int,lines[index_line].replace("\n", "").split(",")))
+    lines = dataset_file.readlines()
+    capacity = int(lines[0])
+    num_of_class = int(lines[1])
+    weights = list(map(int,lines[2].replace("\n", "").split(",")))
+    values = list(map(int,lines[3].replace("\n", "").split(",")))
+    class_label = list(map(int,lines[4].replace("\n", "").split(",")))
     # print(capacity, num_of_class, weights, values, class_label)
     epoch = epoch
     population = []
@@ -205,7 +196,7 @@ def run_genetic(epoch, dataset, output_file):
         population = new_generation
 
         index += 1
-        print(f"epoch: {index} {best_score} {genetic.cal_weight(best_item)} {genetic.cal_val(best_item)}")
+        print(f"epoch: {index} Best score: {best_score} Weight: {genetic.cal_weight(best_item)} Value: {genetic.cal_val(best_item)}")
     print(f"{genetic.cal_val(best_item)}")
     output_file.write(f"{genetic.cal_val(best_item)}\n")
     print(f"{best_item}")
@@ -213,4 +204,13 @@ def run_genetic(epoch, dataset, output_file):
 
         
 if __name__ == "__main__":
-    run_genetic(epoch=5000, dataset="testcases")
+    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_1.txt", output_file="genetic/output/small_dataset/OUTPUT_1.txt")
+    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_2.txt", output_file="genetic/output/small_dataset/OUTPUT_2.txt")
+    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_3.txt", output_file="genetic/output/small_dataset/OUTPUT_3.txt")
+    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_4.txt", output_file="genetic/output/small_dataset/OUTPUT_4.txt")
+    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_5.txt", output_file="genetic/output/small_dataset/OUTPUT_5.txt")
+    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_1.txt", output_file="genetic/output/large_dataset/OUTPUT_1.txt")
+    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_2.txt", output_file="genetic/output/large_dataset/OUTPUT_2.txt")
+    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_3.txt", output_file="genetic/output/large_dataset/OUTPUT_3.txt")
+    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_4.txt", output_file="genetic/output/large_dataset/OUTPUT_4.txt")
+    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_5.txt", output_file="genetic/output/large_dataset/OUTPUT_5.txt")
