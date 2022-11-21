@@ -1,7 +1,5 @@
 import random
-import sys
 import copy
-import numpy as np
 
 GENS = [0, 1]
 POPULATION_SIZE = 100
@@ -28,21 +26,6 @@ class GeneticAlgo():
             new_gnorm.append(self.make_gens_mutation())
 
         return new_gnorm
-
-    def check_gnorm_valid(self, gnorm):
-        total_weight = 0
-        for index, weight in enumerate(self.weights):
-            total_weight += weight * gnorm[index]
-            if total_weight > self.capacity:
-                return False
-        check_label = [False for _ in range(self.nums_of_class + 1)]
-        for index, label in enumerate(self.class_label):
-            if gnorm[index] == 1:
-                check_label[label] = True
-        for i in range(1, len(check_label)):
-            if check_label[i] == False:
-                return False
-        return True
 
     def cal_score(self, gnorm):
         total_weight = 0
@@ -122,19 +105,6 @@ class GeneticAlgo():
 
         return item_copy
 
-    def mate_2(self, item1, items):
-        child = []
-        for gen1, gen2 in zip(item1, items):
-            prob = random.random()
-
-            if prob < 0.45:
-                child.append(gen1)
-            elif prob < 0.9:
-                child.append(gen2)
-            else:
-                child.append(self.make_gens_mutation())
-        return child
-
 
 def run_genetic(epoch, dataset, output_file):
 
@@ -211,21 +181,21 @@ def run_genetic(epoch, dataset, output_file):
 if __name__ == "__main__":
     run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_1.txt",
                 output_file="genetic/output/small_dataset/OUTPUT_1.txt")
-    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_2.txt",
-                output_file="genetic/output/small_dataset/OUTPUT_2.txt")
-    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_3.txt",
-                output_file="genetic/output/small_dataset/OUTPUT_3.txt")
-    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_4.txt",
-                output_file="genetic/output/small_dataset/OUTPUT_4.txt")
-    run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_5.txt",
-                output_file="genetic/output/small_dataset/OUTPUT_5.txt")
-    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_1.txt",
-                output_file="genetic/output/large_dataset/OUTPUT_1.txt")
-    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_2.txt",
-                output_file="genetic/output/large_dataset/OUTPUT_2.txt")
-    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_3.txt",
-                output_file="genetic/output/large_dataset/OUTPUT_3.txt")
-    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_4.txt",
-                output_file="genetic/output/large_dataset/OUTPUT_4.txt")
-    run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_5.txt",
-                output_file="genetic/output/large_dataset/OUTPUT_5.txt")
+    # run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_2.txt",
+    #             output_file="genetic/output/small_dataset/OUTPUT_2.txt")
+    # run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_3.txt",
+    #             output_file="genetic/output/small_dataset/OUTPUT_3.txt")
+    # run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_4.txt",
+    #             output_file="genetic/output/small_dataset/OUTPUT_4.txt")
+    # run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_5.txt",
+    #             output_file="genetic/output/small_dataset/OUTPUT_5.txt")
+    # run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_1.txt",
+    #             output_file="genetic/output/large_dataset/OUTPUT_1.txt")
+    # run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_2.txt",
+    #             output_file="genetic/output/large_dataset/OUTPUT_2.txt")
+    # run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_3.txt",
+    #             output_file="genetic/output/large_dataset/OUTPUT_3.txt")
+    # run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_4.txt",
+    #             output_file="genetic/output/large_dataset/OUTPUT_4.txt")
+    # run_genetic(epoch=5000, dataset="testcases/large_dataset/INPUT_5.txt",
+    #             output_file="genetic/output/large_dataset/OUTPUT_5.txt")
