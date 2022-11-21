@@ -201,7 +201,6 @@ def run_genetic(epoch, dataset, output_file):
     output_file.write(f"{genetic.cal_val(best_item)}\n")
     print(f"{best_item}")
     output_file.write(f"{best_item}".replace('[','').replace(']','') + "\n")
-
         
 if __name__ == "__main__":
     run_genetic(epoch=1000, dataset="testcases/small_dataset/INPUT_1.txt", output_file="genetic/output/small_dataset/OUTPUT_1.txt")
