@@ -1,7 +1,3 @@
-
-import sys
-
-        
 ans = []
 maxVal = 0
 
